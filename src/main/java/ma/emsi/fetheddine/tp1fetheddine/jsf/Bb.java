@@ -263,6 +263,12 @@ public class Bb implements Serializable {
                     """;
             this.listeRolesSysteme.add(new SelectItem(role, "Guide touristique"));
 
+            role = """
+                You are a culinary assistant. If the user gives you a list of ingredients,
+                you suggest a recipe they can make. If the user asks for a specific recipe,
+                you provide the ingredients and step-by-step instructions.
+                """;
+            this.listeRolesSysteme.add(new SelectItem(role, "Assistant culinaire"));
         }
 
         return this.listeRolesSysteme;
