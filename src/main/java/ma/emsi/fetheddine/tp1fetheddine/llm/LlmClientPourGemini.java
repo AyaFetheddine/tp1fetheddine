@@ -38,7 +38,8 @@ public class LlmClientPourGemini implements Serializable {
         // Endpoint REST pour envoyer la question à l'API.
         // L'URL à trouver a été utilisé dans la commande curl pour tester la clé secrète.
         // Elle se trouve aussi dans le support de cours.
-        this.targetBase = clientRest.target("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent");
+        String geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=" + this.key;
+        this.targetBase = clientRest.target(geminiApiUrl);
     }
 
     /**
@@ -50,8 +51,7 @@ public class LlmClientPourGemini implements Serializable {
         if (this.key == null || this.key.isBlank()) {
             throw new RequeteException("Variable d'environnement/propriété JVM GEMINI_KEY manquante ou vide");
         }
-        WebTarget target = targetBase.queryParam("key", this.key);
-        Invocation.Builder request = target.request(MediaType.APPLICATION_JSON_TYPE);
+        Invocation.Builder request = targetBase.request(MediaType.APPLICATION_JSON_TYPE);
         // Envoie la requête POST au LLM
         return request.post(requestEntity);
     }
